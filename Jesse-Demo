@@ -1,0 +1,69 @@
+
+users = {}
+
+while True:
+    print("\n1. Login")
+    print("2. Sign Up")
+    print("3. Exit")
+
+    choice = input("Choose: ")
+
+    # SIGN UP
+    if choice == "2":
+        print("\n--- SIGN UP ---")
+
+        first_name = input("First name: ")
+        last_name = input("Last name: ")
+
+        phone = input("Phone: ")
+        while len(phone) != 10 or not phone.isdigit():
+            print("Phone must be 10 digits")
+            phone = input("Phone: ")
+
+        username = input("Username: ")
+        while not username.islower():
+            print("Use small letters only")
+            username = input("Username: ")
+
+        email = input("Email: ")
+        while "@" not in email or ".com" not in email:
+            print("Invalid email")
+            email = input("Email: ")
+
+        password = input("Password: ")
+        while len(password) < 8 or not any(x.isdigit() for x in password):
+            print("Password must have 8 characters and a number")
+            password = input("Password: ")
+
+        confirm = input("Confirm password: ")
+
+        if password == confirm:
+            users[email] = [username, password, first_name, last_name, phone]
+            print("Sign up successful!")
+        else:
+            print("Passwords do not match!")
+
+    # LOGIN
+    elif choice == "1":
+        print("\n--- LOGIN ---")
+
+        username = input("Username: ")
+        email = input("Email: ")
+        password = input("Password: ")
+
+        if email in users:
+            if users[email][0] == username and users[email][1] == password:
+                print("Login successful!")
+                print("Welcome", users[email][2])
+            else:
+                print("Wrong username or password")
+        else:
+            print("Account not found. Please sign up.")
+
+    # EXIT
+    elif choice == "3":
+        print("Thank you!")
+        break
+
+    else:
+        print("Invalid choice")
